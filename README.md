@@ -1,2 +1,2 @@
-# algorithm_hw
-NCTU algorithm homework
+# NCTU Algorithm Homework
+* Record assignments in the course.
