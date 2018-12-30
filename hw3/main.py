@@ -53,7 +53,10 @@ class multiStageGraph():
 with open("input.txt") as f:
     inputFile = f.read().splitlines()
 
+f = open('test.txt', 'w')
+
 table = []
+
 
 for index in range(len(inputFile)):
     line = inputFile[index]
@@ -69,7 +72,7 @@ for index in range(len(inputFile)):
             stage = len(classes)
             graph = multiStageGraph(stage, int(inputFile[index+1][0]))
             graph.buildGraph(classes)
-            print(graph.endNode.prof)
+            f.write(str(graph.endNode.prof) + '\n')
         else:
             table = []
             del classes
