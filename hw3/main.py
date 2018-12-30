@@ -53,7 +53,7 @@ class multiStageGraph():
 with open("input.txt") as f:
     inputFile = f.read().splitlines()
 
-f = open('test.txt', 'w')
+f = open('output.txt', 'w')
 
 table = []
 
