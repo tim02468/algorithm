@@ -28,7 +28,7 @@ class multiStageGraph():
                 self.currentList[j-i] = newNode
                 for k in range(j-i+1):
                     pastNode = self.previousList[k]
-                    if pastNode == 0 or newNode.res - pastNode.res > 4:
+                    if pastNode == 0 or newNode.res - pastNode.res > len(classes[0]):
                         continue
                     prof = classes[i-1][newNode.res - pastNode.res - 1]
                     cumProf = prof + pastNode.prof
@@ -40,7 +40,7 @@ class multiStageGraph():
         
         # end node
         for i in self.previousList:
-            if i == 0:
+            if i == 0 or self.resource - i.res - 1 > len(classes[0]) - 1:
                 continue
             prof = 0 if self.resource - i.res == 0 else classes[self.numStage-1][self.resource - i.res - 1]
             cumProf = i.prof + prof
@@ -48,33 +48,31 @@ class multiStageGraph():
                 self.endNode.prof = cumProf
                 self.endNode.prev = i
 
-
 # input data
 with open("input.txt") as f:
     inputFile = f.read().splitlines()
 
-f = open('output.txt', 'w')
+f = open('test.txt', 'w')
 
 table = []
-
 
 for index in range(len(inputFile)):
     line = inputFile[index]
     line = line.split(' ')
-    
     # table
     if len(line) > 1:
         table.append([int(l) for l in line])
     
     if line[0] == '':
-        if len(inputFile[index+1]) == 1 and type(int(inputFile[index+1][0])) == int:
+        if inputFile[index+1] == '':
+            break
+        elif len(inputFile[index+1].split(' ')) == 1 and type(int(inputFile[index+1][0])) == int:
             classes = list(map(list, zip(*table)))
             stage = len(classes)
-            graph = multiStageGraph(stage, int(inputFile[index+1][0]))
+            graph = multiStageGraph(stage, int(inputFile[index+1]))
             graph.buildGraph(classes)
             f.write(str(graph.endNode.prof) + '\n')
         else:
             table = []
-            del classes
 
             
